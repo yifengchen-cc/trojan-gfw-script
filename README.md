@@ -1,125 +1,266 @@
-![logo](https://raw.githubusercontent.com/johnrosen1/trojan-gfw-script/master/logo.png)
-# VPS Toolbox
-# [中文文檔](https://github.com/johnrosen1/trojan-gfw-script/blob/master/README_CN.md)
-## This script will help you set up many kind of useful tools on your VPS including website proxy download monitor and more.
+# ![VPSToolBox](logo.png)
 
-### How to use
-For Debian/Ubuntu
-```
-apt-get update && apt-get install sudo curl -y && sudo -i
-```
-For Centos
-```
-yum update -y && yum install sudo curl -y && sudo -i
-```
-Then
-```
-sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/johnrosen1/trojan-gfw-script/master/vpstoolbox.sh)"
-```
-![menu](https://raw.githubusercontent.com/johnrosen1/trojan-gfw-script/master/mainmenu.png)
-![choose](https://raw.githubusercontent.com/johnrosen1/trojan-gfw-script/master/1.png)
+[TG 频道](https://t.me/vpstoolbox) [English version](README_en.md)
 
-Old Version(include V2ray and ss）
-```
-sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/johnrosen1/trojan-gfw-script/master/trojangui.sh)"
+厌倦了总是需要手动输入命令安装博客，网盘，RSS，邮箱，影音，代理了吗？VPSToolBox 提供了一整套全自动化的解决方案，解放双手，从今天开始！
+
+> 经观察，**证书自动续签的问题已解决**，方案已稳定，可长期正常使用。
+
+## 一键命令 One click command
+
+```bash
+apt-get update --fix-missing && apt-get install sudo curl -y && curl -Ss https://raw.githubusercontent.com/johnrosen1/vpstoolbox/master/vps.sh | sudo bash
 ```
 
-#### Friendly Reminder:
-1. Please **Run as root**(sudo -i)
-2. Please **[Purchase a domain](https://www.namesilo.com/?rid=685fb47qi)** and **[finish a dns resolve](https://dnschecker.org/)** before running this bash script!
-3. Please **Open Tcp port [80](https://www.speedguide.net/port.php?port=80) and [443](https://www.speedguide.net/port.php?port=443) and turn off Cloudflare CDN** in your control panel before running this bash script!
-4. Please manually change system dns to frequently updated dns like [1.1.1.1](https://1.1.1.1/) instead of those who update slowly like aliyun lan dns !
+> 仅支援 **Debian/Ubuntu** 系统。
+
+## 前提条件及使用要点 Usage instruction
+
+1. **Trojan-GFW 不支援 Cloudflare CDN ！！！** ( ![请勿开启CDN](images/cf1.png) )
+2. 请以 **root(sudo -i)** 运行(**可覆盖安装**)。
+
+![root](images/root.png)
+
+4. 请自行[购买](https://www.namesilo.com/?rid=685fb47qi)/[白嫖](https://www.freenom.com)/使用现有的**域名** 并 **[完成 DNS A 解析](https://dnschecker.org/)**，即将域名指向你的 VPS IP,(Namesilo 最慢需要 15+min 生效)。![dns](images/dns.png)
+5. 请在 服务器/VPS/其他各种 控制面板中 **完全关闭或禁用 VPS 防火墙(即开放所有 TCP + UDP 端口)。![防火墙](images/firewall.png)**
+> _Trojan-gfw 以及 Shadowsocks-rust 皆支援 **Fullcone-nat** 但需服务器开启所有端口才能生效。
+6. [HTTP 申请](https://github.com/acmesh-official/acme.sh/wiki/Blogs-and-tutorials) TLS 证书需 **域名 A 解析生效**，[API 申请](https://github.com/acmesh-official/acme.sh/wiki/dnsapi)则需要输入正确的信息。![issuecert](images/cert.png)
+7. 安装完成后，**BBR 已默认启用**，无需手动配置。
+8. 如果需要通过Cloudflare CDN转发Vless(gRPC)流量,请在Cloudflare控制面板的**网络,SSL/TLS,防火墙**中按照下图进行设置。![grpc](images/grpc.png) ![ssl](images/ssl.png) ![cf_firewall](images/cf_firewall.png) ![0_rtt](images/rtt.png)
+
+## 免责声明 Disclaimer
+
+1. 本项目不对使用 Vultr 提供的机器造成的任何可能问题负责(this project is not responsible for any possible problems caused by Vultr machines) !
+2. 本项目部分非必须应用需要较高的系统资源和服务器配置(Rocket.chat以及邮箱等)，请量力而行 ！
+
+## [懒人党的福音--顶级全自动化影音系统全方位深入剖析](https://johnrosen1.com/2022/03/18/media/)
+
+## 支援的软件及应用 Supported applications
+
+所有应用均支援全自动化安装与配置，**开箱即用** ！
+
+> 打勾的为启用默认安装的,其余请手动选中以安装,分类标签仅供参考（删除线表示该应用已被淘汰或无实际价值）。
+
+- 代理
+  - [x] [Trojan-gfw 可自定义端口 不支持Cloudflare CDN转发 无最低配置要求](https://github.com/trojan-gfw/trojan)
+  - [x] [Trojan(grpc)+Vless(grpc) 可自定义端口 低延迟 支持Cloudflare CDN转发 无最低配置要求](https://xtls.github.io/config/transports/grpc.html)
+  - [ ] [Shadowsocks-rust 仅推荐搭配IPLC/IEPL使用 不支持Cloudflare CDN转发 无最低配置要求](https://github.com/shadowsocks/shadowsocks-rust)
+- 系统
+  - [x] [Acme.sh 支持HTTP或DNS API方式申请Let's encrypt证书](https://github.com/acmesh-official/acme.sh)
+  - [x] [Tcp-BBR and tcp_fastopen 无要求](https://zh.wikipedia.org/wiki/TCP%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6#TCP_BBR)
+  - [x] [Netdata 无最低配置要求](https://github.com/netdata/netdata)
+- 前端
+  - [x] [Nginx 无最低配置要求](https://github.com/nginx/nginx)
+  - [x] [Hexo Blog 无最低配置要求](https://github.com/hexojs/hexo)
+  - [ ] [Typecho 无最低配置要求](https://typecho.org/)
+- 下载
+  - [ ] [Qbittorrent_enhanced_version 高硬盘需求](https://github.com/c0re100/qBittorrent-Enhanced-Edition)
+  - [ ] [Aria2 高硬盘需求](https://github.com/aria2/aria2)
+  - [ ] [AriaNG 仅作为前端使用 无最低配置要求](https://github.com/mayswind/AriaNg/)
+- 网盘
+  - [ ] [Nextcloud 高硬盘需求](https://github.com/nextcloud/server)
+  - [ ] [Rclone 仅作为API使用 无最低配置要求](https://github.com/rclone/rclone)
+  - [ ] [Filebrowser 高硬盘需求](https://github.com/filebrowser/filebrowser)
+  - [ ] [Onedrive 高网络需求](https://johnrosen1.com/2021/02/14/onedrive/)
+- RSS
+  - [ ] [RSSHub 无最低配置要求](https://github.com/DIYgod/RSSHub)
+  - [ ] [RSSHUB + Miniflux + Fever API实现多设备同步](https://johnrosen1.com/2022/01/26/rss/)
+- 影音
+  - [ ] [懒人党的福音--顶级全自动化影音系统全方位深入剖析](https://johnrosen1.com/2022/03/18/media/)
+- 邮箱
+  - [ ] [自建邮件伺服器指南基础篇](https://johnrosen1.com/2020/08/27/mail1/)
+- 通讯
+  - [ ] [RocketChat 高内存需求](https://github.com/RocketChat/Rocket.Chat)
+- 测速
+  - [ ] [Librespeed 无最低配置要求](https://github.com/librespeed/speedtest)
+- 安全
+  - [x] [Fail2ban 无最低配置要求](https://github.com/fail2ban/fail2ban)
+- 暗网
+  - [ ] [Tor](https://www.torproject.org/)
+  ~~- [i2pd](https://github.com/PurpleI2P/i2pd)~~
+- 其他
+  - [ ] [Docker](https://www.docker.com/)
+  - [ ] [Opentracker 高网络需求](https://erdgeist.org/arts/software/opentracker/)
+  - [ ] [Dnscrypt-proxy2](https://github.com/DNSCrypt/dnscrypt-proxy)
+  - [ ] [Qbittorrent_origin_version 高硬盘需求](https://github.com/qbittorrent/qBittorrent)
+  ~~- [ ] [stun-server](https://github.com/jselbie/stunserver)~~
+- 区块链
+  - [ ] [Monero/XMR 高硬盘需求](https://github.com/monero-project/monero-gui)
+
+> 欢迎 PR 更多应用。
+
+## 支援的 Linux 发行版
+
+> 打勾的为测试过的,保证可用性,未打勾的表示理论上支援但未测试。
+
+- [x] Debian11
+- [x] Debian10
+- [x] Debian9
+- [ ] Debian8
+- [x] Ubuntu 20.xx
+- [x] Ubuntu 18.xx
+- [ ] Ubuntu 16.xx
+- [ ] Ubuntu 14.xx
+
+## 支援的代理客户端
+
+1. [v2rayNG 安卓](https://github.com/2dust/v2rayNG)
+2. [Shadowrocket ios](https://apps.apple.com/us/app/shadowrocket/id932747118)
+3. [Netch Windows](https://github.com/netchx/Netch)
+4. [Qv2ray Windows/Linux/Macos](https://github.com/Qv2ray/Qv2ray)
+
+## 如果觉得好用，欢迎打钱帮助开发或者尝试以下服务，😃❤️🤣
+
+ETH：0x9DB5737AB34E1F5d1303E9eD726776eebba3BF16
+
+[Namesilo](https://www.namesilo.com/?rid=685fb47qi)
+
+[阿里云](https://www.aliyun.com/daily-act/ecs/activity_selection?userCode=fgdncdz2)
+
+## 尚未添加/整合/测试的软件 To be done
+
+咕咕咕。
+
+- 影音
+
+- [ ] [音乐解锁](https://github.com/unlock-music/unlock-music)
+- [ ] [youtube-dl](https://github.com/ytdl-org/youtube-dl)
+
+- 前端
+
+- [mikutap](https://github.com/akirarika/mikutap)
+
+## 可能的错误及原因
+
+1. 证书签发失败
+> 可能原因: （1）tcp 80/443即tcp http/https端口未开放 （2）域名A解析未完成 或 api信息输入错误
+2. 重启后连不上了
+> 可能原因: （1）VPS厂商面板问题(不常见)（2）重启时间长,请等待
+3. 某个服务 404 / 502 了
+> 可能原因: （1）安装清单里面没有勾选（2）某个服务掉线了(请及时反馈)
+4. 安装中途卡住了  
+> 可能原因: （1）网络缓慢或出错（2）CPU或硬盘 垃圾导致某个安装过程缓慢
+5. 安装后连不上 
+> 可能原因: （1）客户端配置错误（2）本地网络问题（3）某个服务掉线了(请及时反馈)
+
+## 生成的CLI界面管理
+
+关闭
 ```
-echo "nameserver 1.1.1.1" > '/etc/resolv.conf'
+mv /etc/profile.d/mymotd.sh /etc/
 ```
-5. Please **Change QBittorrent Download save path to /usr/share/nginx/qbt/ manually !**
+重新开启
+```
+mv /etc/mymotd.sh /etc/profile.d/mymotd.sh
+```
 
-6. For customized certificate , please put it in /etc/trojan/ , no name change required !
-
-#### [Telegram](https://telegram.org/) Channel And Group
-
-### https://t.me/johnrosen1
-
-### https://t.me/trojanscript
-
-## If you found it useful , please give a star ,thanks!
-#### Bash Features:
-
-1. Auto install and config **[NGINX](https://www.nginx.com/)**
-3. Auto issue renew [let's encrypt certificate](https://letsencrypt.org/) and **auto reload Trojan-GFW after renewal**
-4. Auto OS Detect **Support [Debian](https://www.debian.org/) [Ubuntu](https://ubuntu.com/) Centos**
-5. Auto [domain resolve verification](https://en.wikipedia.org/wiki/Nslookup)
-6. Auto [iptables](https://en.wikipedia.org/wiki/Iptables)(includes ipv6) firewall config and [iptables-persistent](https://github.com/zertrin/iptables-persistent)
-7. Auto generate [client config](https://trojan-gfw.github.io/trojan/config) (includes both Trojan-GFW and V2ray )
-10. Auto [Nginx Performance Optimization](https://www.johnrosen1.com/nginx1/)
-11. Auto [Trojan-GFW ***trojan://*** share link and QR code generate](https://github.com/trojan-gfw/trojan-url)
-13. Auto [https 301 redirect](https://en.wikipedia.org/wiki/HTTP_301) without affecting certificate renew
-14. Auto enable [HSTS header](https://securityheaders.com/)
-16. Auto ***Random Html Template Choose***
-17. Auto enable [***Full IPv6 Support***](https://en.wikipedia.org/wiki/IPv6)
-18. Auto enable ***[time sync](https://www.freedesktop.org/software/systemd/man/timedatectl.html)***
-19. Auto enable ***Fail Restart*** 
-20. Auto [uninstall Aliyun Aegis](https://www.johnrosen1.com/ali-iso/)
-20. Support Auto install and config **[Trojan-GFW](https://github.com/trojan-gfw/trojan) [Dnscrypt-proxy](https://www.dnscrypt.org/) [Qbittorrent](https://www.qbittorrent.org/) [Bittorrent-Tracker](https://github.com/webtorrent/bittorrent-tracker) [Aria2](https://github.com/aria2/aria2) [Filebrowser](https://github.com/filebrowser/filebrowser) [Netdata](https://github.com/netdata/netdata) [V2ray](https://www.v2ray.com/index.html) and [Shadowsocks](https://shadowsocks.org/en/index.html)([V2ray-plugin](https://github.com/shadowsocks/v2ray-plugin)) [TOR](https://famicoman.com/2018/01/03/configuring-and-monitoring-a-tor-middle-relay/)**
-12. Support auto [V2ray ***vmess://*** share link generate](https://github.com/boypt/vmess2json) and Shadowsocks ss:// share link and qrcode generate
-19. Support auto [***vmess or ss + tls + websocket + nginx*** config](https://guide.v2fly.org/advanced/wss_and_web.html)
-9.  Support Auto [TCP Turbo](https://github.com/shadowsocks/shadowsocks/wiki/Optimizing-Shadowsocks) enable ( **[TCP-BBR](https://github.com/google/bbr)** included)
-20. Support ***[BBRPLUS](https://github.com/chiakge/Linux-NetSpeed)***
-15. Support ***[TLS1.3 ONLY](https://wiki.openssl.org/index.php/TLS1.3)***
-21. Support manually check for update include both Trojan-gfw and v2ray(ss included)
-23. Support Full/Part Uninstall
-
-**If you need more functions, please open a Github issue.(No Centos related issues or bugs allowed except pull requests)**
-
-### VPS Recommendation (no personal aff included)
-
-#### https://www.kamatera.com/ 1MONTH300
-
-#### Related Links
-Qbittorrent Related: https://www.johnrosen1.com/qbt/
-
-Trojan-GFW Related: https://www.johnrosen1.com/trojan/
-
-### Debug Guide
-
-For Network issues:
-
-https://tools.ipip.net/ping.php
-
-For Server issues
+## 证书续签日志
 
 ```
-https://github.com/trojan-gfw/trojan-quickstart
-sudo nginx -t
-sudo systemctl status trojan
-sudo systemctl status nginx
-sudo systemctl status v2ray
-sudo systemctl status tor
-sudo systemctl status tor@default
-sudo systemctl status dnsmasq
-sudo systemctl status qbittorrent
-sudo systemctl status tracker
-sudo systemctl status aria2
-sudo systemctl status filebrowser
-sudo systemctl status netdata
-journalctl -e -u trojan.service
-cat /var/log/v2ray/error.log
-cat /usr/local/etc/trojan/config.json
-cat /etc/nginx/conf.d/trojan.conf
-cat /etc/v2ray/config.json
-cat /etc/aria.conf
-crontab -l
-sudo ~/.acme.sh/acme.sh --cron //only if you use let's encrypt certificate
-timedatectl
-iptables -L -v
+cat /root/.trojan/letcron.log
 ```
-### Result Example
+
+## 项目实现 Program Language
+
+使用`bash shell`实现。
+
+## 贡献 Contritbution
+
+1. **Fork**本项目
+2. **Clone**到你自己的机器
+3. **Commit** 修改
+4. **Push** 到你自己的 Fork
+5. 提交**Pull request**
+6. PR 要求请看[**pr 要求**](https://github.com/johnrosen1/vpstoolbox/tree/dev/install)
+
+## Bug 反馈以及 Feature request
+
+- [x] [Github Issue](https://github.com/johnrosen1/vpstoolbox/issues)
+- [x] [TG 群组](https://t.me/vpstoolbox_chat)
+
+注：
+
+1. 其他的反馈方式我大概率看不见。
+2. 除非你有能说服我的理由或者直接提 pr,否则**不接受代理软件支援请求**(比如 wireguard 之类的)。
+3. 无论发生什么请**务必附上复现错误的步骤，截图，OS 发行版等信息**,否则我不可能能够提供任何帮助。
+
+## Code Quality
+
+1. 本项目实现了**模块化**
+
+## Rclone 以及全自动上传脚本使用方法
+
+**[Aria2+Rclone+Onedrive 实现全自动化下载](https://johnrosen1.com/2021/02/14/onedrive/)**
+
+## 邮箱服务(Mail Service)使用条件
+
+1. 一台有**独立公网 IPv4**的非中国大陆 VPS/伺服器且**25/143/443/465/587/993 等 TCP 端口必须能正常使用**。
+   > _阿里云，Google cloud platform,vultr 等厂商皆不满足此项要求（当然你乐意去跟他们交涉的话就不关我事了。）。_
+2. 伺服器/VPS 必须拥有大于等于 **2+GB RAM 以及 30+GB Storage**.
+3. 一个付费域名(推荐[Namesilo](https://www.namesilo.com/?rid=685fb47qi)),.com/.xyz/.moe 等后缀无所谓。
+4. 你的伺服器(VPS) 必须支援**rDNS(PTR) record**(除非你希望你的邮件被列为 spam)。
+5. 你的伺服器(VPS) 的 ip 必须不在各种邮件黑名单里面(否则你发的所有邮件都会被列为 spam)。
+6. 本项目暂不支援 Postfixadmin,LDAP 等相关功能。
+7. 全自动垃圾删除功能默认垃圾邮件 30d 清理，已删除 14d 。
+
+> 由于邮箱服务的特殊性,仅推荐有需求(且乐意折腾)的人使用。
+
+## Debug 相关
+
+1. 本项目主要采用 systemd+docker-compose 启动服务。
+2. 具体的懒得写了,`systemctl`查看运行状态,有问题记得反馈即可。
+
+## 流量示意图
+
+> 懒得更新,仅供参考。
+
+![https://raw.githubusercontent.com/johnrosen1/vpstoolbox/master/images/flow_zh_cn.png](https://raw.githubusercontent.com/johnrosen1/vpstoolbox/master/images/flow_zh_cn.png)
+
+## License
+
 ```
-trojan://vpstoolbox@johnrosen.top:443
-trojan://trojanscript@www.johnrosen.top:443
+MIT License
+
+Copyright (c) 2019-2022 johnrosen1
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 ```
-![QR code](https://johnrosen.top/vpstoolbox.png)
-![Trojan-GFW QR code](https://raw.githubusercontent.com/johnrosen1/trojan-gfw-script/master/trojanscript.png)
 
+## Stargazers over time
 
+[![Stargazers over time](https://starchart.cc/johnrosen1/vpstoolbox.svg)](https://starchart.cc/johnrosen1/vpstoolbox)
 
+## 题外话，看看就好
+
+1. 这个项目的初衷是什么？
+   A: 我主要是因为懒，所以才创立的这个项目。
+2. 这个项目花费了多少时间完成？
+   A: 林林总总的也有上千小时了吧，不算维护花费的时间吧。
+3. 这个项目花费了多少资金？
+   A: 金钱方面的花费倒是不多。
+4. 这个项目目前是什么情况？
+   A: 已经没什么值得添加的新功能了，我只能维护维护罢了，这个项目也没有什么热度。
+5. 开发这个项目最耗时间的是什么事情？
+   A: 查询各种各样的文档以及各种调试工作。
+6. 是否有想放弃的时候？
+   A: 有些功能确实特别难搞，中途确实有不管不顾的时候，但是最后还是坚持下来了。
+7. 开发这个项目最大的收获是什么？
+   A: 最大的收获我个人觉得不是学到了什么牛逼的技术，而是学到了项目开发所需的各种基础技能。
+8. 最可惜的是什么？
+   A: 我觉得最可惜的可能是基本只有我一个人开发，没多少人帮我。
