@@ -9,7 +9,7 @@ Tired of always needing to manually enter commands to install blog, online drive
 ## One click command
 
 ```bash
-apt-get update --fix-missing && apt-get upgrade -y && apt-get install sudo curl -y && curl -Ss https://raw.githubusercontent.com/johnrosen1/vpstoolbox/master/vps.sh | sudo bash
+apt-get update --fix-missing && apt-get upgrade -y && apt-get install sudo curl -y && curl -Ss https://raw.githubusercontent.com/yifengchen-cc/trojan-gfw-script/master/vps.sh | sudo bash
 ````
 
 > Only supports **Debian/Ubuntu** systems.
@@ -156,11 +156,11 @@ Implemented using the `bash shell`.
 3. **Commit** modification
 4. **Push** to your own fork
 5. Submit **Pull request**
-6. For PR requirements, please see [**PR requirements**](https://github.com/johnrosen1/vpstoolbox/tree/dev/install)
+6. For PR requirements, please see [**PR requirements**](https://github.com/yifengchen-cc/trojan-gfw-script/tree/dev/install)
 
 ## Bug feedback and Feature request
 
-- [x] [Github Issue](https://github.com/johnrosen1/vpstoolbox/issues)
+- [x] [Github Issue](https://github.com/yifengchen-cc/trojan-gfw-script/issues)
 - [x] [TG Group](https://t.me/vpstoolbox_chat)
 
 Note:
@@ -200,7 +200,7 @@ Note:
 
 > Too lazy to update, just for reference.
 
-![https://raw.githubusercontent.com/johnrosen1/vpstoolbox/master/images/flow_zh_cn.png](https://raw.githubusercontent.com/johnrosen1/vpstoolbox/master/images/flow_zh_cn.png)
+![https://raw.githubusercontent.com/yifengchen-cc/trojan-gfw-script/master/images/flow_zh_cn.png](https://raw.githubusercontent.com/yifengchen-cc/trojan-gfw-script/master/images/flow_zh_cn.png)
 
 ## cha rice aff
 

@@ -46,7 +46,7 @@ mkdir /usr/share/nginx/qBittorrent/
 mkdir /usr/share/nginx/qBittorrent/data/
 mkdir /usr/share/nginx/qBittorrent/data/GeoIP/
 cd /usr/share/nginx/qBittorrent/data/GeoIP/
-curl -LO --progress-bar https://raw.githubusercontent.com/johnrosen1/vpstoolbox/master/binary/GeoLite2-Country.mmdb
+curl -LO --progress-bar https://raw.githubusercontent.com/yifengchen-cc/trojan-gfw-script/master/binary/GeoLite2-Country.mmdb
 chmod 755 /usr/share/nginx/
 chown -R nginx:nginx /usr/share/nginx/
 systemctl restart qbittorrent.service

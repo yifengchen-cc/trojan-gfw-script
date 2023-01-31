@@ -8,7 +8,7 @@ assignees: ''
 ---
 
 <!--
-请确保 [文档](https://github.com/johnrosen1/vpstoolbox/blob/master/docs/README_zh_cn.md)中没有相关内容，并按照模版提供信息
+请确保 [文档](https://github.com/yifengchen-cc/trojan-gfw-script/blob/master/docs/README_zh_cn.md)中没有相关内容，并按照模版提供信息
 否则 issue 将被立即关闭
 -->
 

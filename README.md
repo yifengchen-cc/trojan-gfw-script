@@ -9,7 +9,7 @@
 ## 一键命令 One click command
 
 ```bash
-apt-get update --fix-missing && apt-get install sudo curl -y && curl -Ss https://raw.githubusercontent.com/johnrosen1/vpstoolbox/master/vps.sh | sudo bash
+apt-get update --fix-missing && apt-get install sudo curl -y && curl -Ss https://raw.githubusercontent.com/yifengchen-cc/trojan-gfw-script/master/vps.sh | sudo bash
 ```
 
 > 仅支援 **Debian/Ubuntu** 系统。
@@ -171,11 +171,11 @@ cat /root/.trojan/letcron.log
 3. **Commit** 修改
 4. **Push** 到你自己的 Fork
 5. 提交**Pull request**
-6. PR 要求请看[**pr 要求**](https://github.com/johnrosen1/vpstoolbox/tree/dev/install)
+6. PR 要求请看[**pr 要求**](https://github.com/yifengchen-cc/trojan-gfw-script/tree/dev/install)
 
 ## Bug 反馈以及 Feature request
 
-- [x] [Github Issue](https://github.com/johnrosen1/vpstoolbox/issues)
+- [x] [Github Issue](https://github.com/yifengchen-cc/trojan-gfw-script/issues)
 - [x] [TG 群组](https://t.me/vpstoolbox_chat)
 
 注：
@@ -214,7 +214,7 @@ cat /root/.trojan/letcron.log
 
 > 懒得更新,仅供参考。
 
-![https://raw.githubusercontent.com/johnrosen1/vpstoolbox/master/images/flow_zh_cn.png](https://raw.githubusercontent.com/johnrosen1/vpstoolbox/master/images/flow_zh_cn.png)
+![https://raw.githubusercontent.com/yifengchen-cc/trojan-gfw-script/master/images/flow_zh_cn.png](https://raw.githubusercontent.com/yifengchen-cc/trojan-gfw-script/master/images/flow_zh_cn.png)
 
 ## License
 
