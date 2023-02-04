@@ -1,6 +1,6 @@
-![logo](https://raw.githubusercontent.com/johnrosen1/trojan-gfw-script/master/logo.png)
+![logo](https://raw.githubusercontent.com/yifengchen-cc/trojan-gfw-script/master/logo.png)
 # VPS Toolbox
-# [中文文檔](https://github.com/johnrosen1/trojan-gfw-script/blob/master/README_CN.md)
+# [中文文檔](https://github.com/yifengchen-cc/trojan-gfw-script/blob/master/README_CN.md)
 ## This script will help you set up many kind of useful tools on your VPS including website proxy download monitor and more.
 
 ### How to use
@@ -14,14 +14,14 @@ yum update -y && yum install sudo curl -y && sudo -i
 ```
 Then
 ```
-sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/johnrosen1/trojan-gfw-script/master/vpstoolbox.sh)"
+sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/yifengchen-cc/trojan-gfw-script/master/vpstoolbox.sh)"
 ```
-![menu](https://raw.githubusercontent.com/johnrosen1/trojan-gfw-script/master/mainmenu.png)
-![choose](https://raw.githubusercontent.com/johnrosen1/trojan-gfw-script/master/1.png)
+![menu](https://raw.githubusercontent.com/yifengchen-cc/trojan-gfw-script/master/mainmenu.png)
+![choose](https://raw.githubusercontent.com/yifengchen-cc/trojan-gfw-script/master/1.png)
 
 Old Version(include V2ray and ss）
 ```
-sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/johnrosen1/trojan-gfw-script/master/trojangui.sh)"
+sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/yifengchen-cc/trojan-gfw-script/master/trojangui.sh)"
 ```
 
 #### Friendly Reminder:
@@ -119,7 +119,7 @@ trojan://vpstoolbox@johnrosen.top:443
 trojan://trojanscript@www.johnrosen.top:443
 ```
 ![QR code](https://johnrosen.top/vpstoolbox.png)
-![Trojan-GFW QR code](https://raw.githubusercontent.com/johnrosen1/trojan-gfw-script/master/trojanscript.png)
+![Trojan-GFW QR code](https://raw.githubusercontent.com/yifengchen-cc/trojan-gfw-script/master/trojanscript.png)
 
 
 

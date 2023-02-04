@@ -1,4 +1,4 @@
-![logo](https://raw.githubusercontent.com/johnrosen1/trojan-gfw-script/master/logo.png)
+![logo](https://raw.githubusercontent.com/yifengchen-cc/trojan-gfw-script/master/logo.png)
 # VPS Toolbox
 ## 此Bash Script将帮助你以极快的速度从零开始打造一台全能的代理+下載+監控一体化的伺服器.
 
@@ -13,14 +13,14 @@ yum update -y && yum install sudo newt curl -y && sudo -i
 ```
 運行腳本
 ```
-sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/johnrosen1/trojan-gfw-script/master/vpstoolbox.sh)"
+sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/yifengchen-cc/trojan-gfw-script/master/vpstoolbox.sh)"
 ```
-![menu](https://raw.githubusercontent.com/johnrosen1/trojan-gfw-script/master/mainmenu.png)
-![choose](https://raw.githubusercontent.com/johnrosen1/trojan-gfw-script/master/1.png)
+![menu](https://raw.githubusercontent.com/yifengchen-cc/trojan-gfw-script/master/mainmenu.png)
+![choose](https://raw.githubusercontent.com/yifengchen-cc/trojan-gfw-script/master/1.png)
 
 旧版本（包含V2ray和ss,此版本不再提供任何支援）
 ```
-sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/johnrosen1/trojan-gfw-script/master/trojangui.sh)"
+sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/yifengchen-cc/trojan-gfw-script/master/trojangui.sh)"
 ```
 
 #### 運行前的要求:
@@ -117,6 +117,6 @@ iptables -L -v
 ```
 trojan://trojanscript@www.johnrosen.top:443
 ```
-![Trojan-GFW QR code](https://raw.githubusercontent.com/johnrosen1/trojan-gfw-script/master/trojanscript.png)
+![Trojan-GFW QR code](https://raw.githubusercontent.com/yifengchen-cc/trojan-gfw-script/master/trojanscript.png)
 
 

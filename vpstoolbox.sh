@@ -23,7 +23,7 @@
 
 #Run me with:
 
-#sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/johnrosen1/trojan-gfw-script/master/trojangui.sh)"
+#sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/yifengchen-cc/trojan-gfw-script/master/trojangui.sh)"
 
 clear
 
@@ -887,7 +887,7 @@ WantedBy=multi-user.target
 EOF
 systemctl daemon-reload
 if [[ $dist = centos ]]; then
-	curl -LO --progress-bar https://raw.githubusercontent.com/johnrosen1/trojan-gfw-script/master/nginx_centos
+	curl -LO --progress-bar https://raw.githubusercontent.com/yifengchen-cc/trojan-gfw-script/master/nginx_centos
 	cp -f nginx_centos /usr/sbin/nginx
 	rm nginx_centos
 	mkdir /var/cache/nginx/ || true
@@ -1174,14 +1174,14 @@ EOF
 	colorEcho ${INFO} "安装aria2(Install aria2 ing)"
 	if [[ $dist = centos ]]; then
 		yum install -y -q nettle-dev libgmp-dev libssh2-1-dev libc-ares-dev libxml2-dev zlib1g-dev libsqlite3-dev libssl-dev libuv1-dev || true
-		curl -LO --progress-bar https://raw.githubusercontent.com/johnrosen1/trojan-gfw-script/master/aria2c_centos.xz
+		curl -LO --progress-bar https://raw.githubusercontent.com/yifengchen-cc/trojan-gfw-script/master/aria2c_centos.xz
 		xz --decompress aria2c_centos.xz
 		cp aria2c_centos /usr/local/bin/aria2c
 		chmod +x /usr/local/bin/aria2c
 		rm aria2c_centos
 	else
 		apt-get install nettle-dev libgmp-dev libssh2-1-dev libc-ares-dev libxml2-dev zlib1g-dev libsqlite3-dev libssl-dev libuv1-dev -qq -y
-		curl -LO --progress-bar https://raw.githubusercontent.com/johnrosen1/trojan-gfw-script/master/aria2c.xz
+		curl -LO --progress-bar https://raw.githubusercontent.com/yifengchen-cc/trojan-gfw-script/master/aria2c.xz
 		xz --decompress aria2c.xz
 		cp aria2c /usr/local/bin/aria2c
 		chmod +x /usr/local/bin/aria2c
@@ -1966,7 +1966,7 @@ fi
 nginx -t
 systemctl restart nginx || true
 htmlcode=$(shuf -i 1-3 -n 1)
-curl -LO --progress-bar https://raw.githubusercontent.com/johnrosen1/trojan-gfw-script/master/$htmlcode.zip
+curl -LO --progress-bar https://raw.githubusercontent.com/yifengchen-cc/trojan-gfw-script/master/$htmlcode.zip
 unzip -o $htmlcode.zip -d /usr/share/nginx/html/
 rm -rf $htmlcode.zip
 rm -rf /usr/share/nginx/html/readme.txt
@@ -2361,7 +2361,7 @@ bandwithusage(){
 ##################################
 clear
 function advancedMenu() {
-		ADVSEL=$(whiptail --clear --ok-button "吾意已決 立即安排" --backtitle "hi" --title "VPS ToolBox Menu" --menu --nocancel "Choose an option: https://github.com/johnrosen1/trojan-gfw-script
+		ADVSEL=$(whiptail --clear --ok-button "吾意已決 立即安排" --backtitle "hi" --title "VPS ToolBox Menu" --menu --nocancel "Choose an option: https://github.com/yifengchen-cc/trojan-gfw-script
 运行此脚本前请在控制面板中开启80 443端口并关闭Cloudflare CDN!" 13 78 4 \
 				"1" "安裝(Install)" \
 				"2" "结果(Result)" \
@@ -2428,7 +2428,7 @@ function advancedMenu() {
 				6)
 				cd
 				checkupdate
-				colorEcho ${SUCCESS} "RTFM: https://github.com/johnrosen1/trojan-gfw-script"
+				colorEcho ${SUCCESS} "RTFM: https://github.com/yifengchen-cc/trojan-gfw-script"
 				;;
 				7)
 				cd
@@ -2437,7 +2437,7 @@ function advancedMenu() {
 				;;
 				8)
 				exit
-				whiptail --title "脚本已退出" --msgbox "脚本已退出(Bash Exited) RTFM: https://github.com/johnrosen1/trojan-gfw-script" 8 78
+				whiptail --title "脚本已退出" --msgbox "脚本已退出(Bash Exited) RTFM: https://github.com/yifengchen-cc/trojan-gfw-script" 8 78
 				;;
 		esac
 }
@@ -2458,7 +2458,7 @@ osdist
 setlanguage
 license="$( jq -r '.license' "/root/.trojan/license.json" )"
 if [[ $license != 1 ]]; then
-if (whiptail --title "Accept LICENSE?" --yesno "已阅读并接受MIT License(Please read and accept the MIT License)? https://github.com/johnrosen1/trojan-gfw-script/blob/master/LICENSE" 8 78); then
+if (whiptail --title "Accept LICENSE?" --yesno "已阅读并接受MIT License(Please read and accept the MIT License)? https://github.com/yifengchen-cc/trojan-gfw-script/blob/master/LICENSE" 8 78); then
 	cat > '/root/.trojan/license.json' << EOF
 {
   "license": "1"
