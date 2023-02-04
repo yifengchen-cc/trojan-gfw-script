@@ -25,7 +25,7 @@
 
 #sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/yifengchen-cc/trojan-gfw-script/master/trojangui.sh)"
 
-clear
+#clear
 
 if [[ $(id -u) != 0 ]]; then
 	echo Please run this script as root.
@@ -213,7 +213,7 @@ isresolved(){
 }
 ########################################################
 issuecert(){
-	clear
+	#clear
 	colorEcho ${INFO} "申请(issuing) let\'s encrypt certificate"
 	if [[ -f /etc/trojan/trojan.crt ]] && [[ -f /etc/trojan/trojan.key ]]; then
 		TERM=ansi whiptail --title "证书已有，跳过申请" --infobox "证书已有，跳过申请。。。" 8 78
@@ -239,7 +239,7 @@ EOF
 	colorEcho ${ERROR} "Domain verification fail,Pleae Open port 80 443 on VPS panel !!!"
 	exit 1
 	fi 
-	clear
+	#clear
 	colorEcho ${INFO} "正式证书申请ing(issuing) let\'s encrypt certificate"
 	~/.acme.sh/acme.sh --issue --nginx -d $domain -k ec-256 --force --log --reloadcmd "systemctl reload trojan || true && nginx -s reload"
 	~/.acme.sh/acme.sh --installcert -d $domain --fullchainpath /etc/trojan/trojan.crt --keypath /etc/trojan/trojan.key --ecc
@@ -605,7 +605,7 @@ installdependency(){
 		(echo >/dev/tcp/localhost/80) &>/dev/null && echo "TCP port 443 open" && kill $(lsof -t -i:443) || echo "Moving on"
 	fi
 ###########################################
-	clear
+	#clear
 	colorEcho ${INFO} "安装所有必备软件(Install all necessary Software)"
 	if [[ $dist = centos ]]; then
 		yum install -y -q sudo curl wget gnupg python3-qrcode unzip bind-utils epel-release chrony systemd dbus xz cron || true
@@ -617,11 +617,11 @@ installdependency(){
 		apt-get install python3-qrcode -qq -y
 	fi
  else
-	clear
+	#clear
 	TERM=ansi whiptail --title "error can't install dependency" --infobox "error can't install dependency" 8 78
 	exit 1;
  fi
- clear
+ #clear
 #############################################
 if [[ -f /etc/trojan/trojan.crt ]] || [[ $dns_api == 1 ]]; then
 	:
@@ -630,7 +630,7 @@ if [[ -f /etc/trojan/trojan.crt ]] || [[ $dns_api == 1 ]]; then
 	then
 	:
 	else
-	clear
+	#clear
 	whiptail --title "Domain verification fail" --msgbox --scrolltext "域名解析验证失败，请自行验证解析是否成功并且请关闭Cloudfalare CDN并检查VPS控制面板防火墙(80 443)是否打开!!!Domain verification fail,Pleae turn off Cloudflare CDN and Open port 80 443 on VPS panel !!!" 8 78
 	if (whiptail --title "api" --yesno "使用 (use) api申请证书(to issue certificate)替代?" 8 78); then
 	domain=$(whiptail --inputbox --nocancel "快輸入你的域名並按回車" 8 78 --title "Domain input" 3>&1 1>&2 2>&3)
@@ -711,7 +711,7 @@ done
 	colorEcho ${ERROR} "Domain verification fail,Pleae turn off Cloudflare CDN and Open port 80 443 on VPS panel !!!"
     exit 1
     fi
-	clear
+	#clear
 	fi  
 fi
 #############################################
@@ -722,7 +722,7 @@ fi
 	if [[ -f /etc/apt/sources.list.d/nginx.list ]]; then
 		:
 		else
-		clear
+		#clear
 		colorEcho ${INFO} "安装Nginx(Install Nginx ing)"
 	if [[ $dist = centos ]]; then
 	yum install nginx -y -q
@@ -740,7 +740,7 @@ EOF
 	apt-get update -qq
 	apt-get install nginx -qq -y
  else
-	clear
+	#clear
 	TERM=ansi whiptail --title "error can't install nginx" --infobox "error can't install nginx" 8 78
 		exit 1;
  fi
@@ -809,7 +809,7 @@ http {
 	client_max_body_size 10G;
 }
 EOF
-clear
+#clear
 #############################################
 if [[ $install_qbt = 1 ]]; then
 	if [[ -f /usr/bin/qbittorrent-nox ]]; then
@@ -833,7 +833,7 @@ RestartSec=1s
 WantedBy=multi-user.target
 EOF
 	else
-	clear
+	#clear
 	colorEcho ${INFO} "安装Qbittorrent(Install Qbittorrent ing)"
 	if [[ $dist = centos ]]; then
 	yum install -y -q epel-release
@@ -847,7 +847,7 @@ EOF
 	export DEBIAN_FRONTEND=noninteractive 
 	apt-get install qbittorrent-nox -qq -y
  else
-	clear
+	#clear
 	TERM=ansi whiptail --title "error can't install qbittorrent-nox" --infobox "error can't install qbittorrent-nox" 8 78
 		exit 1;
  fi
@@ -874,13 +874,13 @@ mkdir /usr/share/nginx/qbt/ || true
 chmod 755 /usr/share/nginx/qbt/ || true
 fi
 fi
-clear
+#clear
 #############################################
 if [[ $install_tracker = 1 ]]; then
 	if [[ -f /usr/bin/bittorrent-tracker ]]; then
 		:
 		else
-		clear
+		#clear
 		colorEcho ${INFO} "安装Bittorrent-tracker(Install bittorrent-tracker ing)"
 	if [[ $dist = centos ]]; then
 		curl -sL https://rpm.nodesource.com/setup_13.x | bash -
@@ -894,7 +894,7 @@ if [[ $install_tracker = 1 ]]; then
 	curl -sL https://deb.nodesource.com/setup_13.x | bash -
 	apt-get install -qq -y nodejs
  else
-	clear
+	#clear
 	TERM=ansi whiptail --title "error can't install qbittorrent-nox" --infobox "error can't install qbittorrent-nox" 8 78
 		exit 1;
  fi
@@ -920,13 +920,13 @@ WantedBy=multi-user.target
 EOF
 fi
 fi
-clear
+#clear
 #############################################
 if [[ $install_file = 1 ]]; then
 	if [[ -f /usr/local/bin/filebrowser ]]; then
 		:
 		else
-		clear
+		#clear
 		colorEcho ${INFO} "安装Filebrowser(Install Filebrowser ing)"
 	if [[ $dist = centos ]]; then
 	curl -fsSL https://raw.githubusercontent.com/filebrowser/get/master/get.sh | bash || true
@@ -934,7 +934,7 @@ if [[ $install_file = 1 ]]; then
 	export DEBIAN_FRONTEND=noninteractive
 	curl -fsSL https://raw.githubusercontent.com/filebrowser/get/master/get.sh | bash
  else
-	clear
+	#clear
 	TERM=ansi whiptail --title "error can't install filebrowser" --infobox "error can't install filebrowser" 8 78
 		exit 1;
  fi
@@ -959,7 +959,7 @@ mkdir /etc/filebrowser/ || true
 touch /etc/filebrowser/database.db || true
 fi
 fi
-clear
+#clear
 #############################################
 if [[ $install_aria = 1 ]]; then
 	if [[ -f /usr/local/bin/aria2c ]]; then
@@ -1049,7 +1049,7 @@ file-allocation=none
 disk-cache=64M
 EOF
 	else
-	clear
+	#clear
 	colorEcho ${INFO} "安装aria2(Install aria2 ing)"
 	if [[ $dist = centos ]]; then
 		yum install -y -q nettle-dev libgmp-dev libssh2-1-dev libc-ares-dev libxml2-dev zlib1g-dev libsqlite3-dev libssl-dev libuv1-dev || true
@@ -1172,7 +1172,7 @@ if [[ $dnsmasq_install = 1 ]]; then
 	if [[ -f /usr/sbin/dnscrypt-proxy ]]; then
 		:
 	else
-	clear
+	#clear
 	colorEcho ${INFO} "安装dnscrypt-proxy(Install dnscrypt-proxy ing)"
 	dnsmasqstatus=$(systemctl is-active dnsmasq)
 		if [[ $dnsmasqdstatus == active ]]; then
@@ -1341,10 +1341,10 @@ WantedBy=multi-user.target
 EOF
 	fi
 fi
-clear
+#clear
 #############################################
 if [[ $install_tor = 1 ]]; then
-	clear
+	#clear
 	if [[ -f /usr/bin/tor ]]; then
 		:
 		else
@@ -1365,7 +1365,7 @@ EOF
 	apt-get install deb.torproject.org-keyring tor tor-arm tor-geoipdb -qq -y || true
 	service tor stop
  else
-	clear
+	#clear
 	TERM=ansi whiptail --title "error can't install tor" --infobox "error can't install tor" 8 78
 		exit 1;
  fi
@@ -1389,7 +1389,7 @@ if [[ $install_netdata = 1 ]]; then
 	if [[ -f /usr/sbin/netdata ]]; then
 		:
 		else
-		clear
+		#clear
 		colorEcho ${INFO} "安装Netdata(Install netdata ing)"
 		bash <(curl -Ss https://my-netdata.io/kickstart-static64.sh) --dont-wait --disable-telemetry
 		#bash <(curl -Ss https://my-netdata.io/kickstart.sh) --dont-wait --disable-telemetry
@@ -1402,7 +1402,7 @@ if [[ $install_netdata = 1 ]]; then
 		cd
 	fi
 fi
-clear
+#clear
 #############################################
 if [[ -f /etc/trojan/trojan.crt ]] && [[ -f /etc/trojan/trojan.key ]]; then
 	:
@@ -1415,11 +1415,11 @@ if [[ $install_trojan = 1 ]]; then
 	if [[ -f /usr/local/bin/trojan ]]; then
 		:
 		else
-	clear
+	#clear
 	colorEcho ${INFO} "安装Trojan-GFW(Install Trojan-GFW ing)"
 	bash -c "$(curl -fsSL https://raw.githubusercontent.com/trojan-gfw/trojan-quickstart/master/trojan-quickstart.sh)"
 	systemctl daemon-reload
-	clear
+	#clear
 	colorEcho ${INFO} "配置(configing) trojan-gfw"
 	if [[ -f /etc/trojan/trojan.pem ]]; then
 		colorEcho ${INFO} "DH已有，跳过生成。。。"
@@ -1555,7 +1555,7 @@ EOF
 }
 EOF
 fi
-	clear
+	#clear
 	if [[ $install_bbr = 1 ]]; then
 	colorEcho ${INFO} "设置(setting up) TCP-BBR boost technology"
 	cat > '/etc/sysctl.d/99-sysctl.conf' << EOF
@@ -1668,7 +1668,7 @@ EOF
 	export DEBIAN_FRONTEND=noninteractive 
 	apt-get install iptables-persistent -qq -y > /dev/null
  else
-	clear
+	#clear
 	TERM=ansi whiptail --title "error can't install iptables-persistent" --infobox "error can't install iptables-persistent" 8 78
 	exit 1;
  fi
@@ -1676,7 +1676,7 @@ EOF
 ########Nginx config for Trojan only##############
 nginxtrojan(){
 	set +e
-	clear
+	#clear
 	colorEcho ${INFO} "配置(configing) nginx"
 rm -rf /etc/nginx/sites-available/*
 rm -rf /etc/nginx/sites-enabled/*
@@ -1907,7 +1907,7 @@ checkupdate(){
 sharelink(){
 	set +e
 	cd
-	clear
+	#clear
 	echo "安装成功，享受吧！(Install Success! Enjoy it ! )多行不義必自斃，子姑待之。" > result
 	echo "请按方向键往下拉(Please press Arrow keys to scroll down)" >> result
 	if [[ $install_trojan = 1 ]]; then
@@ -2215,7 +2215,7 @@ crontab -l | grep -q '0 * * * * bash /root/.trojan/autoupdate.sh'  && echo 'cron
 logcheck(){
 	set +e
 	readconfig
-	clear
+	#clear
 	if [[ $install_trojan == 1 ]]; then
 		colorEcho ${INFO} "Trojan Log"
 		journalctl -a -u trojan.service
@@ -2238,7 +2238,7 @@ bandwithusage(){
 	colorEcho ${INFO} "Done !"
 }
 ##################################
-clear
+#clear
 function advancedMenu() {
 		ADVSEL=$(whiptail --clear --ok-button "吾意已決 立即安排" --backtitle "hi" --title "VPS ToolBox Menu" --menu --nocancel "Choose an option: https://github.com/yifengchen-cc/trojan-gfw-script
 运行此脚本前请在控制面板中开启80 443端口并关闭Cloudflare CDN!" 13 78 4 \
@@ -2253,7 +2253,7 @@ function advancedMenu() {
 		case $ADVSEL in
 				1)
 				cd
-				clear
+				#clear
 				userinput
 				installdependency
 				openfirewall
@@ -2347,7 +2347,7 @@ EOF
 		exit 1
 	fi
 fi
-clear
+#clear
 ipinfo=$(curl -s https://ipinfo.io?token=56c375418c62c9)
 myip=$(curl -s https://ipinfo.io/ip?token=56c375418c62c9)
 localip=$(ip a | grep inet | grep "scope global" | awk '{print $2}' | cut -d'/' -f1)
