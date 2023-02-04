@@ -328,22 +328,21 @@ whiptail --clear --ok-button "吾意已決 立即執行" --backtitle "hi 请谨�
 若不確定，請保持默認配置並回車" 25 90 17 \
 "back" "返回上级菜单(Back to main menu)" off \
 "系统相关" "System concerned" on  \
-"1" "系统升级(System Upgrade)" on \
-"2" "安裝BBR | TCP效能优化(TCP-Turbo)" on \
-"3" "安裝BBRPLUS" off \
+"1" "安裝BBR | TCP效能优化(TCP-Turbo)" on \
+"2" "安裝BBRPLUS" off \
 "代理相关" "Proxy concerned" on  \
-"4" "安裝Trojan-GFW" on \
-"5" "安裝Dnscrypt-proxy | DNS缓存与广告屏蔽(dns cache and ad block)" on \
-"6" "安裝Tor-Relay | Relay模式(not exit relay)" off \
+"3" "安裝Trojan-GFW" on \
+"4" "安裝Dnscrypt-proxy | DNS缓存与广告屏蔽(dns cache and ad block)" on \
+"5" "安裝Tor-Relay | Relay模式(not exit relay)" off \
 "下载相关" "Download concerned" on  \
-"7" "安裝Qbittorrent | 强大的BT客户端(Powerful Bittorrent Client)" on \
-"8" "安裝Bittorrent-Tracker" on \
-"9" "安裝Aria2" on \
-"10" "安裝Filebrowser | 文件下载与共享(File download and share)" on \
+"6" "安裝Qbittorrent | 强大的BT客户端(Powerful Bittorrent Client)" on \
+"7" "安裝Bittorrent-Tracker" on \
+"8" "安裝Aria2" on \
+"9" "安裝Filebrowser | 文件下载与共享(File download and share)" on \
 "状态监控" "Status concerned" on  \
-"11" "安裝Netdata | 服务器状态监控(Server status monitor)" on \
+"10" "安裝Netdata | 服务器状态监控(Server status monitor)" on \
 "其他" "Others" on  \
-"12" "仅启用TLS1.3(Enable TLS1.3 only)" off 2>results
+"11" "仅启用TLS1.3(Enable TLS1.3 only)" off 2>results
 
 while read choice
 do
@@ -353,69 +352,42 @@ do
 		break
 		;;
 		1) 
-		system_upgrade=1
-		;;
-		2) 
 		install_bbr=1
 		;;
-		3)
+		2)
 		install_bbrplus=1
 		;;
-		4)
+		3)
 		install_trojan=1
 		;;
-		5) 
+		4) 
 		dnsmasq_install=1
 		;;
-		6)
+		5)
 		install_tor=1
 		;;
-		7)
+		6)
 		install_qbt=1
 		;;
-		8)
+		7)
 		install_tracker=1
 		;;
-		9)
+		8)
 		install_aria=1
 		;;
-		10)
+		9)
 		install_file=1
 		;;
-		11)
+		10)
 		install_netdata=1
 		;;
-		12) 
+		11) 
 		tls13only=1
 		;;
 		*)
 		;;
 	esac
 done < results
-####################################
-if [[ $system_upgrade = 1 ]]; then
-	if [[ $(lsb_release -cs) == stretch ]]; then
-		if (whiptail --title "System Upgrade" --yesno "Upgrade to Debian 10?" 8 78); then
-			debian10_install=1
-		else
-			debian10_install=0
-		fi
-	fi
-	if [[ $(lsb_release -cs) == jessie ]]; then
-		if (whiptail --title "System Upgrade" --yesno "Upgrade to Debian 9?" 8 78); then
-			debian9_install=1
-		else
-			debian9_install=0
-		fi
-	fi
-	if [[ $(lsb_release -cs) == xenial ]]; then
-		if (whiptail --title "System Upgrade" --yesno "Upgrade to Ubuntu 18.04?" 8 78); then
-			ubuntu18_install=1
-		else
-			ubuntu18_install=0
-		fi
-	fi
-fi
 #####################################
 while [[ -z $domain ]]; do
 domain=$(whiptail --inputbox --nocancel "快輸入你的域名並按回車" 8 78 --title "Domain input" 3>&1 1>&2 2>&3)
@@ -602,94 +574,6 @@ colorEcho ${INFO} "初始化中(initializing)"
 		exit 1;
  fi
 }
-##############Upgrade system optional########
-upgradesystem(){
-	set +e
-	if [[ $dist = centos ]]; then
-		yum upgrade -y
- elif [[ $dist = ubuntu ]]; then
-	export UBUNTU_FRONTEND=noninteractive
-	if [[ $ubuntu18_install = 1 ]]; then
-		cat > '/etc/apt/sources.list' << EOF
-#------------------------------------------------------------------------------#
-#                            OFFICIAL UBUNTU REPOS                             #
-#------------------------------------------------------------------------------#
-
-###### Ubuntu Main Repos
-deb http://us.archive.ubuntu.com/ubuntu/ bionic main restricted universe multiverse 
-deb-src http://us.archive.ubuntu.com/ubuntu/ bionic main restricted universe multiverse 
-
-###### Ubuntu Update Repos
-deb http://us.archive.ubuntu.com/ubuntu/ bionic-security main restricted universe multiverse 
-deb http://us.archive.ubuntu.com/ubuntu/ bionic-updates main restricted universe multiverse 
-deb-src http://us.archive.ubuntu.com/ubuntu/ bionic-security main restricted universe multiverse 
-deb-src http://us.archive.ubuntu.com/ubuntu/ bionic-updates main restricted universe multiverse 
-EOF
-	apt-get update
-	sh -c 'echo "y\n\ny\ny\ny\ny\ny\ny\ny\n" | DEBIAN_FRONTEND=noninteractive apt-get dist-upgrade -q -y'
-	sh -c 'echo "y\n\ny\ny\ny\ny\ny\ny\ny\n" | DEBIAN_FRONTEND=noninteractive apt-get dist-upgrade -q -y'
-	fi
-	sh -c 'echo "y\n\ny\ny\ny\ny\ny\ny\ny\n" | DEBIAN_FRONTEND=noninteractive apt-get upgrade -qq -y'
-	apt-get autoremove -qq -y
-	clear
- elif [[ $dist = debian ]]; then
-	export DEBIAN_FRONTEND=noninteractive 
-	sh -c 'echo "y\n\ny\ny\ny\ny\ny\ny\ny\n" | DEBIAN_FRONTEND=noninteractive apt-get upgrade -qq -y'
-	if [[ $debian10_install = 1 ]]; then
-		cat > '/etc/apt/sources.list' << EOF
-#------------------------------------------------------------------------------#
-#                   OFFICIAL DEBIAN REPOS                    
-#------------------------------------------------------------------------------#
-
-###### Debian Main Repos
-deb http://deb.debian.org/debian/ stable main contrib non-free
-deb-src http://deb.debian.org/debian/ stable main contrib non-free
-
-deb http://deb.debian.org/debian/ stable-updates main contrib non-free
-deb-src http://deb.debian.org/debian/ stable-updates main contrib non-free
-
-deb http://deb.debian.org/debian-security stable/updates main
-deb-src http://deb.debian.org/debian-security stable/updates main
-
-deb http://ftp.debian.org/debian buster-backports main
-deb-src http://ftp.debian.org/debian buster-backports main
-EOF
-	apt-get update
-	sh -c 'echo "y\n\ny\ny\ny\ny\ny\ny\ny\n" | DEBIAN_FRONTEND=noninteractive apt-get dist-upgrade -q -y'
-	sh -c 'echo "y\n\ny\ny\ny\ny\ny\ny\ny\n" | DEBIAN_FRONTEND=noninteractive apt-get dist-upgrade -q -y'
-	clear
-	fi
-	if [[ $debian9_install = 1 ]]; then
-		cat > '/etc/apt/sources.list' << EOF
-#------------------------------------------------------------------------------#
-#                   OFFICIAL DEBIAN REPOS                    
-#------------------------------------------------------------------------------#
-
-###### Debian Main Repos
-deb http://deb.debian.org/debian/ oldstable main contrib non-free
-deb-src http://deb.debian.org/debian/ oldstable main contrib non-free
-
-deb http://deb.debian.org/debian/ oldstable-updates main contrib non-free
-deb-src http://deb.debian.org/debian/ oldstable-updates main contrib non-free
-
-deb http://deb.debian.org/debian-security oldstable/updates main
-deb-src http://deb.debian.org/debian-security oldstable/updates main
-
-deb http://ftp.debian.org/debian stretch-backports main
-deb-src http://ftp.debian.org/debian stretch-backports main
-EOF
-	apt-get update
-	sh -c 'echo "y\n\ny\ny\ny\ny\ny\ny\ny\n" | DEBIAN_FRONTEND=noninteractive apt-get dist-upgrade -q -y'
-	sh -c 'echo "y\n\ny\ny\ny\ny\ny\ny\ny\n" | DEBIAN_FRONTEND=noninteractive apt-get dist-upgrade -q -y'
-	fi
-	sh -c 'echo "y\n\ny\ny\ny\ny\ny\ny\ny\n" | DEBIAN_FRONTEND=noninteractive apt-get autoremove -qq -y'
-	clear
- else
-	clear
-	TERM=ansi whiptail --title "error can't upgrade system" --infobox "error can't upgrade system" 8 78
-	exit 1;
- fi
-}
 ##########install dependencies#############
 installdependency(){
 	colorEcho ${INFO} "Updating system"
@@ -830,11 +714,6 @@ done
 	clear
 	fi  
 fi
-#############################################
-if [[ $system_upgrade = 1 ]]; then
-upgradesystem
-fi
-clear
 #############################################
 if [[ $tls13only = 1 ]]; then
 cipher_server="TLS_AES_128_GCM_SHA256"
@@ -2442,7 +2321,6 @@ function advancedMenu() {
 		esac
 }
 cd
-system_upgrade=0
 install_bbr=0
 install_bbrplus=0
 install_trojan=0
